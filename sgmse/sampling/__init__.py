@@ -3,6 +3,7 @@
 from scipy import integrate
 import torch
 
+from tqdm import tqdm
 from .predictors import Predictor, PredictorRegistry, ReverseDiffusionPredictor
 from .correctors import Corrector, CorrectorRegistry
 
@@ -54,7 +55,7 @@ def get_pc_sampler(
         with torch.no_grad():
             xt = sde.prior_sampling(y.shape, y).to(y.device)
             timesteps = torch.linspace(sde.T, eps, sde.N, device=y.device)
-            for i in range(sde.N):
+            for i in tqdm(range(sde.N)):
                 t = timesteps[i]
                 if i != len(timesteps) - 1:
                     stepsize = t - timesteps[i+1]
@@ -154,7 +155,7 @@ def get_sb_sampler(sde, model, y, eps=1e-4, n_steps=50, sampler_type="ode", **kw
             time_prev = time_steps[0] * torch.ones(xt.shape[0], device=xt.device)
             sigma_prev, sigma_T, sigma_bar_prev, alpha_prev, alpha_T, alpha_bar_prev = sde._sigmas_alphas(time_prev)
 
-            for t in time_steps[1:]:
+            for t in tqdm(time_steps[1:]):
                 # Prepare time steps for the whole batch
                 time = t * torch.ones(xt.shape[0], device=xt.device)
 
@@ -202,7 +203,7 @@ def get_sb_sampler(sde, model, y, eps=1e-4, n_steps=50, sampler_type="ode", **kw
             time_prev = time_steps[0] * torch.ones(xt.shape[0], device=xt.device)
             sigma_prev, sigma_T, sigma_bar_prev, alpha_prev, alpha_T, alpha_bar_prev = sde._sigmas_alphas(time_prev)
 
-            for t in time_steps[1:]:
+            for t in tqdm(time_steps[1:]):
                 # Prepare time steps for the whole batch
                 time = t * torch.ones(xt.shape[0], device=xt.device)
 

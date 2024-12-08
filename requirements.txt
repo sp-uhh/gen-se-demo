@@ -15,7 +15,8 @@ pytorch-lightning
 scipy 
 sdeint 
 setuptools 
-seaborn 
+seaborn
+sounddevice
 torch 
 torch-ema 
 torch-pesq

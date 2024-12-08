@@ -442,7 +442,7 @@ class ScoreModel(pl.LightningModule):
 
         # Schrödinger bridge sampling with VE SDE
         elif self.sde.__class__.__name__ == 'SBVESDE':
-            sampler = self.get_sb_sampler(sde=self.sde, y=Y.cuda(), sampler_type=sampler_type)
+            sampler = self.get_sb_sampler(sde=self.sde, y=Y.cuda(), N=N, sampler_type=sampler_type)
         else:
             raise ValueError("Invalid SDE type for speech enhancement: {}".format(self.sde.__class__.__name__))
 
