@@ -423,43 +423,31 @@ class ScoreModel(pl.LightningModule):
     def _istft(self, spec, length=None):
         return self.data_module.istft(spec, length)
 
-    def enhance(self, y, sampler_type="pc", predictor="reverse_diffusion",
-        corrector="ald", N=30, corrector_steps=1, snr=0.5, timeit=False,
-        **kwargs
-    ):
-        """
-        One-call speech enhancement of noisy speech `y`, for convenience.
-        """
-        start = time.time()
+    def enhance(self, y, sampler_type="sde", N=30, corrector_steps=1):
         T_orig = y.size(1) 
         norm_factor = y.abs().max().item()
         y = y / norm_factor
         Y = torch.unsqueeze(self._forward_transform(self._stft(y.cuda())), 0)
-        Y = pad_spec(Y)
+        Y = pad_spec(Y, mode='reflection')
 
         # SGMSE sampling with OUVE SDE
         if self.sde.__class__.__name__ == 'OUVESDE':
-            if self.sde.sampler_type == "pc":
-                sampler = self.get_pc_sampler(predictor, corrector, Y.cuda(), N=N, 
-                    corrector_steps=corrector_steps, snr=snr, intermediate=False,
-                    **kwargs)
-            elif self.sde.sampler_type == "ode":
-                sampler = self.get_ode_sampler(Y.cuda(), N=N, **kwargs)
+            if sampler_type == "sde":
+                sampler = self.get_pc_sampler("reverse_diffusion", "ald", Y.cuda(), N=N, 
+                    corrector_steps=1, snr=0.5, intermediate=False)
+            elif sampler_type == "ode":
+                sampler = self.get_ode_sampler(Y.cuda(), N=N)
             else:
                 raise ValueError("Invalid sampler type for SGMSE sampling: {}".format(sampler_type))
+
         # Schrödinger bridge sampling with VE SDE
         elif self.sde.__class__.__name__ == 'SBVESDE':
-            sampler = self.get_sb_sampler(sde=self.sde, y=Y.cuda(), sampler_type=self.sde.sampler_type)
+            sampler = self.get_sb_sampler(sde=self.sde, y=Y.cuda(), sampler_type=sampler_type)
         else:
             raise ValueError("Invalid SDE type for speech enhancement: {}".format(self.sde.__class__.__name__))
 
-        sample, nfe = sampler()
+        sample, _ = sampler()
         x_hat = self.to_audio(sample.squeeze(), T_orig)
         x_hat = x_hat * norm_factor
-        x_hat = x_hat.squeeze().cpu().numpy()
-        end = time.time()
-        if timeit:
-            rtf = (end-start)/(len(x_hat)/self.sr)
-            return x_hat, nfe, rtf
-        else:
-            return x_hat
+        x_hat = x_hat.squeeze().cpu().numpy()        
+        return x_hat
