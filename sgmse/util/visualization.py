@@ -124,3 +124,19 @@ def plot_spec_subplot(audios, path, ncols=4, sr=16000, n_fft=1024, hop_length=51
     plt.tight_layout()
     plt.savefig(path)
     plt.show()
+
+def plot_audio(audio, sr, title='Audio Recording'):
+
+    # Create a time array for the x-axis
+    duration = len(audio) / sr
+    time = np.linspace(0, duration, int(duration * sr)) 
+
+    plt.figure(figsize=(10, 3))
+    plt.plot(time, audio)
+    plt.xlabel('Time [s]')
+    plt.ylabel('Amplitude')
+    plt.title(title)
+    plt.xlim(0, duration)
+    plt.ylim(-1, 1)
+    plt.grid(True)
+    plt.show()

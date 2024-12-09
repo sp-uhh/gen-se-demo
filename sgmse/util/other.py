@@ -139,3 +139,23 @@ def set_torch_cuda_arch_list():
     cc_string = ";".join(compute_capabilities)
     os.environ['TORCH_CUDA_ARCH_LIST'] = cc_string
     print(f"Set TORCH_CUDA_ARCH_LIST to: {cc_string}")
+
+
+def get_inference_objects(model_slider, sampler_type_slider, N_slider, sgmse_model, sb_model, sb_pesq_model):
+
+    # Settings
+    if model_slider.value == 'SGMSE+':
+        model = sgmse_model
+    elif model_slider.value == 'SB':
+        model = sb_model
+    elif model_slider.value == 'SB-PESQ':
+        model = sb_pesq_model
+
+    if sampler_type_slider.value == 'ODE':
+        sampler_type = 'ode'
+    elif sampler_type_slider.value == 'SDE':
+        sampler_type = 'sde'
+
+    N = N_slider.value
+
+    return model, sampler_type, N
