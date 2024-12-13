@@ -30,7 +30,6 @@ __paths__.py
 *.csv
 *.pdf
 *.jpg
-*.png
 *.html
 mushra/
 
