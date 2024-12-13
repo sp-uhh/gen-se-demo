@@ -427,22 +427,22 @@ class ScoreModel(pl.LightningModule):
         T_orig = y.size(1) 
         norm_factor = y.abs().max().item()
         y = y / norm_factor
-        Y = torch.unsqueeze(self._forward_transform(self._stft(y.cuda())), 0)
+        Y = torch.unsqueeze(self._forward_transform(self._stft(y.to(self.device))), 0)
         Y = pad_spec(Y, mode='reflection')
 
         # SGMSE sampling with OUVE SDE
         if self.sde.__class__.__name__ == 'OUVESDE':
             if sampler_type == "sde":
-                sampler = self.get_pc_sampler("reverse_diffusion", "ald", Y.cuda(), N=N, 
+                sampler = self.get_pc_sampler("reverse_diffusion", "ald", Y.to(self.device), N=N, 
                     corrector_steps=1, snr=0.5, intermediate=False)
             elif sampler_type == "ode":
-                sampler = self.get_ode_sampler(Y.cuda(), N=N)
+                sampler = self.get_ode_sampler(Y.to(self.device), N=N)
             else:
                 raise ValueError("Invalid sampler type for SGMSE sampling: {}".format(sampler_type))
 
         # Schrödinger bridge sampling with VE SDE
         elif self.sde.__class__.__name__ == 'SBVESDE':
-            sampler = self.get_sb_sampler(sde=self.sde, y=Y.cuda(), N=N, sampler_type=sampler_type)
+            sampler = self.get_sb_sampler(sde=self.sde, y=Y.to(self.device), N=N, sampler_type=sampler_type)
         else:
             raise ValueError("Invalid SDE type for speech enhancement: {}".format(self.sde.__class__.__name__))
 
