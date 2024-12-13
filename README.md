@@ -1,6 +1,6 @@
 # Diffusion-based Speech Enhancement: Demonstration of Performance and Generalization
 
-<img src="https://raw.githubusercontent.com/sp-uhh/gen-se-demo/main/assets/figure_1.png" width="500" alt="Comparison between SGMSE and Schrödinger bridge.">
+<img src="https://raw.githubusercontent.com/sp-uhh/gen-se-demo/main/assets/figure_1.png" width="700" alt="Comparison between SGMSE and Schrödinger bridge.">
 
 This repository contains the official implementations for the paper "Diffusion-based Speech Enhancement: Demonstration of Performance and Generalization" referenced in [1]. The demo contains works from [2], [3], and [4].
 
