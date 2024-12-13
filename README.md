@@ -1,8 +1,10 @@
 # Diffusion-based Speech Enhancement: Demonstration of Performance and Generalization
 
-<img src="https://raw.githubusercontent.com/sp-uhh/gen-se-demo/main/assets/figure_1.png" width="700" alt="Comparison between SGMSE and Schrödinger bridge.">
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/sp-uhh/gen-se-demo/main/assets/figure_1.png" width="700" alt="Comparison between SGMSE and Schrödinger bridge.">
+</div>
 
-This repository contains the interactive demo for the paper [*"Diffusion-based Speech Enhancement: Demonstration of Performance and Generalization"*](https://openreview.net/forum?id=rv5LuElUic) referenced in [1]. The demo contains works from [2], [3], and [4]. 
+This repository contains the interactive demo for the paper <a href="https://openreview.net/forum?id=rv5LuElUic" target="_blank">*"Diffusion-based Speech Enhancement: Demonstration of Performance and Generalization"*</a> referenced in [1]. The demo contains works from [2], [3], and [4]. 
 
 Please cite these references if you use the code: [[bibtex]](#references)
 
@@ -25,6 +27,14 @@ To run the demo, open the Jupyter notebook `demo.ipynb` and follow the instructi
 ## References
 
 ```bib
+@article{richter2024diffusion,
+  title={Diffusion-based Speech Enhancement: Demonstration of Performance and Generalization},
+  author={Richter, Julius and Gerkmann, Timo},
+  journal={Audio Imagination: NeurIPS 2024 Workshop AI-Driven Speech, Music, and Sound Generation},
+  year={2024}
+}
+```
+```bib
 @article{richter2023speech,
   title={Speech Enhancement and Dereverberation with Diffusion-based Generative Models},
   author={Richter, Julius and Welker, Simon and Lemercier, Jean-Marie and Lay, Bunlong and Gerkmann, Timo},
@@ -33,14 +43,6 @@ To run the demo, open the Jupyter notebook `demo.ipynb` and follow the instructi
   pages={2351-2364},
   year={2023},
   doi={10.1109/TASLP.2023.3285241}
-}
-```
-```bib
-@article{richter2024diffusion,
-  title={Diffusion-based Speech Enhancement: Demonstration of Performance and Generalization},
-  author={Richter, Julius and Gerkmann, Timo},
-  journal={Audio Imagination: NeurIPS 2024 Workshop AI-Driven Speech, Music, and Sound Generation},
-  year={2024}
 }
 ```
 ```bib
