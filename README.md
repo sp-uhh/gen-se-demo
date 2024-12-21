@@ -55,11 +55,11 @@ To run the demo, open the Jupyter notebook `demo.ipynb` and follow the instructi
 }
 ```
 ```bib
-@article{richter2024investigating,
+@inproceedings{richter2025investigating,
   title={Investigating Training Objectives for Generative Speech Enhancement},
   author={Richter, Julius and de Oliveira, Danilo and Gerkmann, Timo},
-  journal={arXiv preprint arXiv:2409.10753},
-  year={2024}
+  booktitle={IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)},
+  year={2025}
 }
 ```
 
@@ -69,4 +69,4 @@ To run the demo, open the Jupyter notebook `demo.ipynb` and follow the instructi
 >
 >[3] A. Jukić, R. Korostik, J. Balam, B. Ginsburg, "Schrödinger Bridge for Generative Speech Enhancement", Proceedings of Interspeech, 2024.
 >
->[4] J. Richter, D. de Oliveira, T. Gerkmann, "Investigating Training Objectives for Generative Speech Enhancement", arXiv preprint arXiv:2409.10753, 2024.
+>[4] J. Richter, D. de Oliveira, T. Gerkmann, "Investigating Training Objectives for Generative Speech Enhancement", accepted at IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP), 2025.
